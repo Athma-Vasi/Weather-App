@@ -534,41 +534,12 @@ const handleSearchCitySubmit = function(ev) {
     (0, _fetchWeatherData.fetchWeatherData)(inputSearchCity);
 };
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./fetchWeatherData":"hc3Zq"}],"gkKU3":[function(require,module,exports) {
-exports.interopDefault = function(a) {
-    return a && a.__esModule ? a : {
-        default: a
-    };
-};
-exports.defineInteropFlag = function(a) {
-    Object.defineProperty(a, "__esModule", {
-        value: true
-    });
-};
-exports.exportAll = function(source, dest) {
-    Object.keys(source).forEach(function(key) {
-        if (key === "default" || key === "__esModule" || dest.hasOwnProperty(key)) return;
-        Object.defineProperty(dest, key, {
-            enumerable: true,
-            get: function() {
-                return source[key];
-            }
-        });
-    });
-    return dest;
-};
-exports.export = function(dest, destName, get) {
-    Object.defineProperty(dest, destName, {
-        enumerable: true,
-        get: get
-    });
-};
-
-},{}],"hc3Zq":[function(require,module,exports) {
+},{"./fetchWeatherData":"hc3Zq","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"hc3Zq":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "fetchWeatherData", ()=>fetchWeatherData);
 var _renderCurrent = require("../components/renderCurrent");
+var _renderDaily = require("../components/renderDaily");
 var _renderHourly = require("../components/renderHourly");
 const fetchWeatherData = async function(cityName_) {
     const log = (i)=>console.log("\n", i, "\n");
@@ -594,12 +565,13 @@ const fetchWeatherData = async function(cityName_) {
         timezone: weatherData.timezone,
         timezone_offset: weatherData.timezone_offset
     };
-    //render current
+    //render
     (0, _renderCurrent.renderCurrent)(latAndLongObj, current, hourly);
     (0, _renderHourly.renderHourly)(hourly);
+    (0, _renderDaily.renderDaily)(daily);
 };
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../components/renderCurrent":"hG8fc","../components/renderHourly":"hhEjo"}],"hG8fc":[function(require,module,exports) {
+},{"../components/renderCurrent":"hG8fc","../components/renderHourly":"hhEjo","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../components/renderDaily":"cIjcA"}],"hG8fc":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "renderCurrent", ()=>renderCurrent);
@@ -617,37 +589,46 @@ const renderCurrent = function(geoData_, current_, hourly_) {
         return acc;
     }, "");
     const currentContainer = document.querySelector(".currentContainer");
-    (0, _elementCreators.pipe)((0, _elementCreators.addTextToElem)(geoData_.name), (0, _elementCreators.appendElemToParent)(currentContainer))((0, _elementCreators.elemCreator)("h3")([
+    //remove previously rendered contents
+    const currentContainerChild = document.querySelector(".currentContainerInner");
+    if (currentContainerChild) currentContainerChild.remove();
+    //render new contents
+    const currentContainerInner = (0, _elementCreators.elemCreator)("div")([
+        "current",
+        "currentContainerInner"
+    ]);
+    (0, _elementCreators.appendElemToParent)(currentContainer)(currentContainerInner);
+    (0, _elementCreators.pipe)((0, _elementCreators.addTextToElem)(geoData_.name), (0, _elementCreators.appendElemToParent)(currentContainerInner))((0, _elementCreators.elemCreator)("h3")([
         "current",
         "cityName"
     ]));
-    (0, _elementCreators.pipe)((0, _elementCreators.addTextToElem)(`${Math.round(current_.temp)}°`), (0, _elementCreators.appendElemToParent)(currentContainer))((0, _elementCreators.elemCreator)("h2")([
+    (0, _elementCreators.pipe)((0, _elementCreators.addTextToElem)(`${Math.round(current_.temp)}°`), (0, _elementCreators.appendElemToParent)(currentContainerInner))((0, _elementCreators.elemCreator)("h2")([
         "current",
         "temperature"
     ]));
-    (0, _elementCreators.pipe)((0, _elementCreators.addTextToElem)(description), (0, _elementCreators.appendElemToParent)(currentContainer))((0, _elementCreators.elemCreator)("h4")([
+    (0, _elementCreators.pipe)((0, _elementCreators.addTextToElem)(description), (0, _elementCreators.appendElemToParent)(currentContainerInner))((0, _elementCreators.elemCreator)("h4")([
         "current",
         "description"
     ]));
-    (0, _elementCreators.pipe)((0, _elementCreators.addTextToElem)("High: "), (0, _elementCreators.appendElemToParent)(currentContainer))((0, _elementCreators.elemCreator)("h4")([
+    (0, _elementCreators.pipe)((0, _elementCreators.addTextToElem)("High: "), (0, _elementCreators.appendElemToParent)(currentContainerInner))((0, _elementCreators.elemCreator)("h4")([
         "current",
         "high-text"
     ]));
-    (0, _elementCreators.pipe)((0, _elementCreators.addTextToElem)(`${high}°`), (0, _elementCreators.appendElemToParent)(currentContainer))((0, _elementCreators.elemCreator)("h4")([
+    (0, _elementCreators.pipe)((0, _elementCreators.addTextToElem)(`${high}°`), (0, _elementCreators.appendElemToParent)(currentContainerInner))((0, _elementCreators.elemCreator)("h4")([
         "current",
         "high-number"
     ]));
-    (0, _elementCreators.pipe)((0, _elementCreators.addTextToElem)(`Low: `), (0, _elementCreators.appendElemToParent)(currentContainer))((0, _elementCreators.elemCreator)("h4")([
+    (0, _elementCreators.pipe)((0, _elementCreators.addTextToElem)(`Low: `), (0, _elementCreators.appendElemToParent)(currentContainerInner))((0, _elementCreators.elemCreator)("h4")([
         "current",
         "low-text"
     ]));
-    (0, _elementCreators.pipe)((0, _elementCreators.addTextToElem)(`${low}°`), (0, _elementCreators.appendElemToParent)(currentContainer))((0, _elementCreators.elemCreator)("h4")([
+    (0, _elementCreators.pipe)((0, _elementCreators.addTextToElem)(`${low}°`), (0, _elementCreators.appendElemToParent)(currentContainerInner))((0, _elementCreators.elemCreator)("h4")([
         "current",
         "low-number"
     ]));
 };
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../utilities/element-creators":"ijWjs"}],"ijWjs":[function(require,module,exports) {
+},{"../utilities/element-creators":"ijWjs","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"ijWjs":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "elemCreator", ()=>elemCreator);
@@ -703,7 +684,37 @@ const addEvtListener = (evt_)=>(handleEvt_)=>(elem_)=>{
         };
 const pipe = (...funcs)=>(value)=>funcs.reduce((res, func)=>func(res), value);
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"hhEjo":[function(require,module,exports) {
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"gkKU3":[function(require,module,exports) {
+exports.interopDefault = function(a) {
+    return a && a.__esModule ? a : {
+        default: a
+    };
+};
+exports.defineInteropFlag = function(a) {
+    Object.defineProperty(a, "__esModule", {
+        value: true
+    });
+};
+exports.exportAll = function(source, dest) {
+    Object.keys(source).forEach(function(key) {
+        if (key === "default" || key === "__esModule" || dest.hasOwnProperty(key)) return;
+        Object.defineProperty(dest, key, {
+            enumerable: true,
+            get: function() {
+                return source[key];
+            }
+        });
+    });
+    return dest;
+};
+exports.export = function(dest, destName, get) {
+    Object.defineProperty(dest, destName, {
+        enumerable: true,
+        get: get
+    });
+};
+
+},{}],"hhEjo":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "renderHourly", ()=>renderHourly);
@@ -711,7 +722,7 @@ var _elementCreators = require("../utilities/element-creators");
 var _renderHourlyCard = require("./renderHourlyCard");
 const renderHourly = function(hourly_) {
     const log = (i)=>console.log("\n", i, "\n");
-    const temp = {
+    const tempHourly = {
         dt: 1654279200,
         temp: 18.69,
         feels_like: 18.02,
@@ -738,18 +749,27 @@ const renderHourly = function(hourly_) {
     let hoursTime = now.getHours();
     hoursTime = hoursTime < 12 ? hoursTime : hoursTime - 12;
     const hourlyContainer = document.querySelector(".hourlyContainer");
+    //remove previously rendered contents
+    const hourlyContainerChild = document.querySelector(".hourlyContainerInner");
+    if (hourlyContainerChild) hourlyContainerChild.remove();
+    //render new contents
+    const hourlyContainerInner = (0, _elementCreators.elemCreator)("div")([
+        "hourly",
+        "hourlyContainerInner"
+    ]);
+    (0, _elementCreators.appendElemToParent)(hourlyContainer)(hourlyContainerInner);
     const ul = (0, _elementCreators.elemCreator)("ul")([
         "hourly",
         "carousel-ul"
     ]);
-    (0, _elementCreators.appendElemToParent)(hourlyContainer)(ul);
+    (0, _elementCreators.appendElemToParent)(hourlyContainerInner)(ul);
     //render hourly cards
     hourly_.forEach((hourInfo, index)=>{
         (0, _renderHourlyCard.renderHourlyCard)(hourInfo, ul, index, hoursTime);
     });
 };
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../utilities/element-creators":"ijWjs","./renderHourlyCard":"55P5C"}],"55P5C":[function(require,module,exports) {
+},{"../utilities/element-creators":"ijWjs","./renderHourlyCard":"55P5C","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"55P5C":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "renderHourlyCard", ()=>renderHourlyCard);
@@ -789,6 +809,63 @@ const renderHourlyCard = function(hourly_, container_, index, hours_) {
     ]));
 };
 
-},{"../utilities/element-creators":"ijWjs","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["hwSkd","gg0zR"], "gg0zR", "parcelRequirebbde")
+},{"../utilities/element-creators":"ijWjs","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"cIjcA":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "renderDaily", ()=>renderDaily);
+var _elementCreators = require("../utilities/element-creators");
+const renderDaily = function(daily_) {
+    const log = (i)=>console.log("\n", i, "\n");
+    const tempDaily = {
+        dt: 1654254000,
+        sunrise: 1654228066,
+        sunset: 1654286990,
+        moonrise: 1654237920,
+        moonset: 1654211880,
+        moon_phase: 0.12,
+        temp: {
+            day: 21.39,
+            min: 10.47,
+            max: 22.1,
+            night: 16.2,
+            eve: 18.96,
+            morn: 11.13
+        },
+        feels_like: {
+            day: 20.63,
+            night: 15.52,
+            eve: 18.27,
+            morn: 10.54
+        },
+        pressure: 1017,
+        humidity: 40,
+        dew_point: 7.04,
+        wind_speed: 5.72,
+        wind_deg: 68,
+        wind_gust: 12.78,
+        weather: [
+            {
+                id: 801,
+                main: "Clouds",
+                description: "few clouds",
+                icon: "02d"
+            }
+        ],
+        clouds: 12,
+        pop: 0.08,
+        uvi: 6.36
+    };
+    const dailyContainer = document.querySelector(".dailyContainer");
+    //remove previously rendered content
+    const dailyContainerChild = document.querySelector(".dailyContainerInner");
+    if (dailyContainerChild) dailyContainerChild.remove();
+    //render new content
+    const dailyContainerInner = (0, _elementCreators.elemCreator)("div")([
+        "dailyContainerInner"
+    ]);
+    (0, _elementCreators.appendElemToParent)(dailyContainer)(dailyContainerInner);
+};
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../utilities/element-creators":"ijWjs"}]},["hwSkd","gg0zR"], "gg0zR", "parcelRequirebbde")
 
 //# sourceMappingURL=index.54632f9a.js.map
