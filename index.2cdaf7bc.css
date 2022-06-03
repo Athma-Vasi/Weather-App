@@ -1,0 +1,20 @@
+html {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-size: 62.5%;
+}
+
+*, :before, :after {
+  box-sizing: inherit;
+}
+
+h1 {
+  color: #008b8b;
+}
+
+.currentContainer {
+  outline: 1px solid #6495ed;
+}
+
+/*# sourceMappingURL=index.2cdaf7bc.css.map */
