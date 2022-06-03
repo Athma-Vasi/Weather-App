@@ -14,7 +14,7 @@ import { renderHourlyCard } from './renderHourlyCard'
 const renderHourly = function (hourly_: HourlyArr) {
 	const log = (i: unknown) => console.log('\n', i, '\n')
 
-	const temp = {
+	const tempHourly = {
 		dt: 1654279200,
 		temp: 18.69,
 		feels_like: 18.02,
@@ -37,8 +37,16 @@ const renderHourly = function (hourly_: HourlyArr) {
 
 	const hourlyContainer: Div = document.querySelector('.hourlyContainer')
 
+	//remove previously rendered contents
+	const hourlyContainerChild: Div = document.querySelector('.hourlyContainerInner')
+	if (hourlyContainerChild) hourlyContainerChild.remove()
+
+	//render new contents
+	const hourlyContainerInner = elemCreator('div')(['hourly', 'hourlyContainerInner'])
+	appendElemToParent(hourlyContainer)(hourlyContainerInner)
+
 	const ul = elemCreator('ul')(['hourly', 'carousel-ul'])
-	appendElemToParent(hourlyContainer)(ul)
+	appendElemToParent(hourlyContainerInner)(ul)
 
 	//render hourly cards
 	hourly_.forEach((hourInfo, index) => {

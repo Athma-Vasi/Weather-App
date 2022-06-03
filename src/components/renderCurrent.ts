@@ -30,40 +30,47 @@ const renderCurrent = function (
 	}, '')
 
 	const currentContainer: Div = document.querySelector('.currentContainer')
+	//remove previously rendered contents
+	const currentContainerChild = document.querySelector('.currentContainerInner')
+	if (currentContainerChild) currentContainerChild.remove()
+
+	//render new contents
+	const currentContainerInner = elemCreator('div')(['current', 'currentContainerInner'])
+	appendElemToParent(currentContainer)(currentContainerInner)
 
 	pipe(
 		addTextToElem(geoData_.name),
-		appendElemToParent(currentContainer)
+		appendElemToParent(currentContainerInner)
 	)(elemCreator('h3')(['current', 'cityName']))
 
 	pipe(
 		addTextToElem(`${Math.round(current_.temp)}°`),
-		appendElemToParent(currentContainer)
+		appendElemToParent(currentContainerInner)
 	)(elemCreator('h2')(['current', 'temperature']))
 
 	pipe(
 		addTextToElem(description),
-		appendElemToParent(currentContainer)
+		appendElemToParent(currentContainerInner)
 	)(elemCreator('h4')(['current', 'description']))
 
 	pipe(
 		addTextToElem('High: '),
-		appendElemToParent(currentContainer)
+		appendElemToParent(currentContainerInner)
 	)(elemCreator('h4')(['current', 'high-text']))
 
 	pipe(
 		addTextToElem(`${high}°`),
-		appendElemToParent(currentContainer)
+		appendElemToParent(currentContainerInner)
 	)(elemCreator('h4')(['current', 'high-number']))
 
 	pipe(
 		addTextToElem(`Low: `),
-		appendElemToParent(currentContainer)
+		appendElemToParent(currentContainerInner)
 	)(elemCreator('h4')(['current', 'low-text']))
 
 	pipe(
 		addTextToElem(`${low}°`),
-		appendElemToParent(currentContainer)
+		appendElemToParent(currentContainerInner)
 	)(elemCreator('h4')(['current', 'low-number']))
 }
 export { renderCurrent }

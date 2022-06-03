@@ -1,4 +1,5 @@
 import { renderCurrent } from '../components/renderCurrent'
+import { renderDaily } from '../components/renderDaily'
 import { renderHourly } from '../components/renderHourly'
 import {
 	Current,
@@ -50,8 +51,9 @@ const fetchWeatherData = async function (cityName_: string) {
 		timezone_offset: weatherData.timezone_offset,
 	}
 
-	//render current
+	//render
 	renderCurrent(latAndLongObj, current, hourly)
 	renderHourly(hourly)
+	renderDaily(daily)
 }
 export { fetchWeatherData }
