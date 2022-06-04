@@ -571,7 +571,7 @@ const fetchWeatherData = async function(cityName_) {
     (0, _renderDaily.renderDaily)(daily);
 };
 
-},{"../components/renderCurrent":"hG8fc","../components/renderHourly":"hhEjo","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../components/renderDaily":"cIjcA"}],"hG8fc":[function(require,module,exports) {
+},{"../components/renderCurrent":"hG8fc","../components/renderDaily":"cIjcA","../components/renderHourly":"hhEjo","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"hG8fc":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "renderCurrent", ()=>renderCurrent);
@@ -714,108 +714,41 @@ exports.export = function(dest, destName, get) {
     });
 };
 
-},{}],"hhEjo":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "renderHourly", ()=>renderHourly);
-var _elementCreators = require("../utilities/element-creators");
-var _renderHourlyCard = require("./renderHourlyCard");
-const renderHourly = function(hourly_) {
-    const log = (i)=>console.log("\n", i, "\n");
-    const tempHourly = {
-        dt: 1654279200,
-        temp: 18.69,
-        feels_like: 18.02,
-        pressure: 1018,
-        humidity: 54,
-        dew_point: 9.2,
-        uvi: 0.51,
-        clouds: 84,
-        visibility: 10000,
-        wind_speed: 5.37,
-        wind_deg: 63,
-        wind_gust: 8.13,
-        weather: [
-            {
-                id: 803,
-                main: "Clouds",
-                description: "broken clouds",
-                icon: "04d"
-            }
-        ],
-        pop: 0.02
-    };
-    const now = new Date();
-    let hoursTime = now.getHours();
-    hoursTime = hoursTime < 12 ? hoursTime : hoursTime - 12;
-    const hourlyContainer = document.querySelector(".hourlyContainer");
-    //remove previously rendered contents
-    const hourlyContainerChild = document.querySelector(".hourlyContainerInner");
-    if (hourlyContainerChild) hourlyContainerChild.remove();
-    //render new contents
-    const hourlyContainerInner = (0, _elementCreators.elemCreator)("div")([
-        "hourly",
-        "hourlyContainerInner"
-    ]);
-    (0, _elementCreators.appendElemToParent)(hourlyContainer)(hourlyContainerInner);
-    const ul = (0, _elementCreators.elemCreator)("ul")([
-        "hourly",
-        "carousel-ul"
-    ]);
-    (0, _elementCreators.appendElemToParent)(hourlyContainerInner)(ul);
-    //render hourly cards
-    hourly_.forEach((hourInfo, index)=>{
-        (0, _renderHourlyCard.renderHourlyCard)(hourInfo, ul, index, hoursTime);
-    });
-};
-
-},{"../utilities/element-creators":"ijWjs","./renderHourlyCard":"55P5C","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"55P5C":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "renderHourlyCard", ()=>renderHourlyCard);
-var _elementCreators = require("../utilities/element-creators");
-const renderHourlyCard = function(hourly_, container_, index, hours_) {
-    const description = hourly_.weather[0].description.split(" ").reduce((acc, curr)=>{
-        curr = curr[0].toUpperCase() + curr.slice(1);
-        acc = `${acc} ${curr}`;
-        return acc;
-    }, "");
-    const li = (0, _elementCreators.elemCreator)("li")([
-        "hourly",
-        `li${index}`
-    ]);
-    (0, _elementCreators.appendElemToParent)(container_)(li);
-    const hourlyCard = (0, _elementCreators.elemCreator)("div")([
-        "hourly",
-        "hourly-card"
-    ]);
-    (0, _elementCreators.appendElemToParent)(li)(hourlyCard);
-    //TODO: broken, fix this logic
-    (0, _elementCreators.pipe)((0, _elementCreators.addTextToElem)(`${hours_ + index < 12 ? hours_ + index + "AM" : hours_ + index - 12 + "PM"}`), (0, _elementCreators.appendElemToParent)(hourlyCard))((0, _elementCreators.elemCreator)("h5")([
-        "hourly",
-        "hourly-time"
-    ]));
-    (0, _elementCreators.pipe)((0, _elementCreators.appendElemToParent)(hourlyCard))((0, _elementCreators.createImage)(`http://openweathermap.org/img/wn/${hourly_.weather[0].icon}@2x.png`)([
-        "hourly",
-        "hourly-icon", 
-    ])(`icon representing ${hourly_.weather[0].description}`)(`${description}`));
-    (0, _elementCreators.pipe)((0, _elementCreators.addTextToElem)(`${hourly_.weather[0].description}`), (0, _elementCreators.appendElemToParent)(hourlyCard))((0, _elementCreators.elemCreator)("h5")([
-        "hourly",
-        "hourly-desc"
-    ]));
-    (0, _elementCreators.pipe)((0, _elementCreators.addTextToElem)(`${Math.round(hourly_.temp)}°`), (0, _elementCreators.appendElemToParent)(hourlyCard))((0, _elementCreators.elemCreator)("h4")([
-        "hourly",
-        "hourly-temp"
-    ]));
-};
-
-},{"../utilities/element-creators":"ijWjs","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"cIjcA":[function(require,module,exports) {
+},{}],"cIjcA":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "renderDaily", ()=>renderDaily);
 var _elementCreators = require("../utilities/element-creators");
-const renderDaily = function(daily_) {
+var _renderDailyCard = require("./renderDailyCard");
+const renderDaily = function(dailyArr_) {
     const log = (i)=>console.log("\n", i, "\n");
+    const now = new Date();
+    let day = now.getDay();
+    const dailyContainer = document.querySelector(".dailyContainer");
+    //remove previously rendered content
+    const dailyContainerChild = document.querySelector(".dailyContainerInner");
+    if (dailyContainerChild) dailyContainerChild.remove();
+    //render new content
+    const dailyContainerInner = (0, _elementCreators.elemCreator)("div")([
+        "dailyContainerInner"
+    ]);
+    (0, _elementCreators.appendElemToParent)(dailyContainer)(dailyContainerInner);
+    const ul = (0, _elementCreators.elemCreator)("ul")([
+        "daily",
+        "carousel-ul"
+    ]);
+    (0, _elementCreators.appendElemToParent)(dailyContainerInner)(ul);
+    dailyArr_.forEach((daily, index)=>{
+        (0, _renderDailyCard.renderDailyCard)(daily, ul, index, day);
+    });
+};
+
+},{"../utilities/element-creators":"ijWjs","./renderDailyCard":"jK6z2","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"jK6z2":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "renderDailyCard", ()=>renderDailyCard);
+var _elementCreators = require("../utilities/element-creators");
+const renderDailyCard = function(daily_, container_, index_, day_) {
     const tempDaily = {
         dt: 1654254000,
         sunrise: 1654228066,
@@ -855,17 +788,205 @@ const renderDaily = function(daily_) {
         pop: 0.08,
         uvi: 6.36
     };
-    const dailyContainer = document.querySelector(".dailyContainer");
-    //remove previously rendered content
-    const dailyContainerChild = document.querySelector(".dailyContainerInner");
-    if (dailyContainerChild) dailyContainerChild.remove();
-    //render new content
-    const dailyContainerInner = (0, _elementCreators.elemCreator)("div")([
-        "dailyContainerInner"
+    const daysMap = new Map([
+        [
+            0,
+            "Sunday"
+        ],
+        [
+            1,
+            "Monday"
+        ],
+        [
+            2,
+            "Tuesday"
+        ],
+        [
+            3,
+            "Wednesday"
+        ],
+        [
+            4,
+            "Thursday"
+        ],
+        [
+            5,
+            "Friday"
+        ],
+        [
+            6,
+            "Saturday"
+        ], 
     ]);
-    (0, _elementCreators.appendElemToParent)(dailyContainer)(dailyContainerInner);
+    //capitalizes first letters of phrase
+    const description = daily_.weather[0].description.split(" ").reduce((acc, curr)=>{
+        curr = curr[0].toUpperCase() + curr.slice(1);
+        acc = `${acc} ${curr}`;
+        return acc;
+    }, "");
+    const li = (0, _elementCreators.elemCreator)("li")([
+        "daily",
+        `daily-li${index_}`
+    ]);
+    (0, _elementCreators.appendElemToParent)(container_)(li);
+    const dailyCard = (0, _elementCreators.elemCreator)("div")([
+        "daily",
+        "daily-card"
+    ]);
+    (0, _elementCreators.appendElemToParent)(li)(dailyCard);
+    (0, _elementCreators.pipe)((0, _elementCreators.addTextToElem)(`${day_ + index_ < 7 ? daysMap.get(day_ + index_) : daysMap.get(day_ + index_ - 7)}`), (0, _elementCreators.appendElemToParent)(dailyCard))((0, _elementCreators.elemCreator)("h5")([
+        "daily",
+        "daily-day"
+    ]));
+    (0, _elementCreators.pipe)((0, _elementCreators.addTextToElem)(`High: ${Math.round(daily_.temp.max)}°`), (0, _elementCreators.appendElemToParent)(dailyCard))((0, _elementCreators.elemCreator)("h5")([
+        "daily",
+        "daily-high"
+    ]));
+    (0, _elementCreators.pipe)((0, _elementCreators.addTextToElem)(`Low: ${Math.round(daily_.temp.min)}°`), (0, _elementCreators.appendElemToParent)(dailyCard))((0, _elementCreators.elemCreator)("h5")([
+        "daily",
+        "daily-low"
+    ]));
+    (0, _elementCreators.pipe)((0, _elementCreators.appendElemToParent)(dailyCard))((0, _elementCreators.createImage)(`http://openweathermap.org/img/wn/${daily_.weather[0].icon}@2x.png`)([
+        "daily",
+        "daily-icon", 
+    ])(`icon representing ${daily_.weather[0].description}`)(`${description}`));
+    (0, _elementCreators.pipe)((0, _elementCreators.addTextToElem)(`${description}`), (0, _elementCreators.appendElemToParent)(dailyCard))((0, _elementCreators.elemCreator)("h5")([
+        "daily",
+        "daily-desc"
+    ]));
 };
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../utilities/element-creators":"ijWjs"}]},["hwSkd","gg0zR"], "gg0zR", "parcelRequirebbde")
+},{"../utilities/element-creators":"ijWjs","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"hhEjo":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "renderHourly", ()=>renderHourly);
+var _elementCreators = require("../utilities/element-creators");
+var _renderHourlyCard = require("./renderHourlyCard");
+const renderHourly = function(hourly_) {
+    const log = (i)=>console.log("\n", i, "\n");
+    const tempHourly = {
+        dt: 1654279200,
+        temp: 18.69,
+        feels_like: 18.02,
+        pressure: 1018,
+        humidity: 54,
+        dew_point: 9.2,
+        uvi: 0.51,
+        clouds: 84,
+        visibility: 10000,
+        wind_speed: 5.37,
+        wind_deg: 63,
+        wind_gust: 8.13,
+        weather: [
+            {
+                id: 803,
+                main: "Clouds",
+                description: "broken clouds",
+                icon: "04d"
+            }
+        ],
+        pop: 0.02
+    };
+    const now = new Date();
+    let hours = now.getHours();
+    let hoursTime = [
+        hours,
+        `${hours < 13 ? "AM" : "PM"}`
+    ];
+    log(hoursTime);
+    const hourlyContainer = document.querySelector(".hourlyContainer");
+    //remove previously rendered contents
+    const hourlyContainerChild = document.querySelector(".hourlyContainerInner");
+    if (hourlyContainerChild) hourlyContainerChild.remove();
+    //render new contents
+    const hourlyContainerInner = (0, _elementCreators.elemCreator)("div")([
+        "hourly",
+        "hourlyContainerInner"
+    ]);
+    (0, _elementCreators.appendElemToParent)(hourlyContainer)(hourlyContainerInner);
+    const ul = (0, _elementCreators.elemCreator)("ul")([
+        "hourly",
+        "carousel-ul"
+    ]);
+    (0, _elementCreators.appendElemToParent)(hourlyContainerInner)(ul);
+    //render hourly cards
+    hourly_.forEach((hourInfo, index)=>{
+        (0, _renderHourlyCard.renderHourlyCard)(hourInfo, ul, index, hoursTime);
+    });
+};
+
+},{"../utilities/element-creators":"ijWjs","./renderHourlyCard":"55P5C","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"55P5C":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "renderHourlyCard", ()=>renderHourlyCard);
+var _elementCreators = require("../utilities/element-creators");
+var _getHours = require("./getHours");
+const renderHourlyCard = function(hourly_, container_, index_, hours_) {
+    const log = (i)=>console.log("\n", i, "\n");
+    const description = hourly_.weather[0].description.split(" ").reduce((acc, curr)=>{
+        curr = curr[0].toUpperCase() + curr.slice(1);
+        acc = `${acc} ${curr}`;
+        return acc;
+    }, "");
+    const li = (0, _elementCreators.elemCreator)("li")([
+        "hourly",
+        `hourly-li${index_}`
+    ]);
+    (0, _elementCreators.appendElemToParent)(container_)(li);
+    const hourlyCard = (0, _elementCreators.elemCreator)("div")([
+        "hourly",
+        "hourly-card"
+    ]);
+    (0, _elementCreators.appendElemToParent)(li)(hourlyCard);
+    //grab the correctly formatted 12-hr time
+    const hoursTime = (0, _getHours.getHours)(hours_, index_);
+    (0, _elementCreators.pipe)((0, _elementCreators.addTextToElem)(hoursTime), (0, _elementCreators.appendElemToParent)(hourlyCard))((0, _elementCreators.elemCreator)("h5")([
+        "hourly",
+        "hourly-time"
+    ]));
+    (0, _elementCreators.pipe)((0, _elementCreators.appendElemToParent)(hourlyCard))((0, _elementCreators.createImage)(`http://openweathermap.org/img/wn/${hourly_.weather[0].icon}@2x.png`)([
+        "hourly",
+        "hourly-icon", 
+    ])(`icon representing ${hourly_.weather[0].description}`)(`${description}`));
+    (0, _elementCreators.pipe)((0, _elementCreators.addTextToElem)(`${hourly_.weather[0].description}`), (0, _elementCreators.appendElemToParent)(hourlyCard))((0, _elementCreators.elemCreator)("h5")([
+        "hourly",
+        "hourly-desc"
+    ]));
+    (0, _elementCreators.pipe)((0, _elementCreators.addTextToElem)(`${Math.round(hourly_.temp)}°`), (0, _elementCreators.appendElemToParent)(hourlyCard))((0, _elementCreators.elemCreator)("h4")([
+        "hourly",
+        "hourly-temp"
+    ]));
+};
+
+},{"../utilities/element-creators":"ijWjs","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./getHours":"6Geb2"}],"6Geb2":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "getHours", ()=>getHours);
+const getHours = function(hours_, index_) {
+    let hours = (hours_[0] + 11) % 12 + 1 + index_;
+    let hoursTime;
+    if (hours_[1] === "PM") {
+        if (hours <= 12) hoursTime = `${hours} PM`;
+        else //hours > 12 and <= 24
+        if (hours <= 24) {
+            hours = hours - 12;
+            hoursTime = `${hours} AM`;
+        } else {
+            if (hours > 24 && hours <= 36) {
+                hours = hours - 24;
+                hoursTime = `${hours} PM`;
+            } else if (hours > 36 && hours <= 48) {
+                hours = hours - 36;
+                hoursTime = `${hours} AM`;
+            } else if (hours > 48 && hours <= 60) {
+                hours = hours - 48;
+                hoursTime = `${hours} PM`;
+            }
+        }
+    }
+    return hoursTime;
+};
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["hwSkd","gg0zR"], "gg0zR", "parcelRequirebbde")
 
 //# sourceMappingURL=index.54632f9a.js.map
