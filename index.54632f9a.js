@@ -718,6 +718,8 @@ exports.export = function(dest, destName, get) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "renderDaily", ()=>renderDaily);
+var _showDailyCarouselLeft = require("../events/showDailyCarouselLeft");
+var _showDailyCarouselRight = require("../events/showDailyCarouselRight");
 var _elementCreators = require("../utilities/element-creators");
 var _renderDailyCard = require("./renderDailyCard");
 const renderDaily = function(dailyArr_) {
@@ -735,19 +737,79 @@ const renderDaily = function(dailyArr_) {
     (0, _elementCreators.appendElemToParent)(dailyContainer)(dailyContainerInner);
     const ul = (0, _elementCreators.elemCreator)("ul")([
         "daily",
-        "carousel-ul"
+        "daily-ul",
+        "slideshow-container"
     ]);
     (0, _elementCreators.appendElemToParent)(dailyContainerInner)(ul);
     dailyArr_.forEach((daily, index)=>{
         (0, _renderDailyCard.renderDailyCard)(daily, ul, index, day);
     });
+    //carousel nav buttons
+    (0, _elementCreators.pipe)((0, _elementCreators.addTextToElem)("<"), (0, _elementCreators.addEvtListener)("click")((0, _showDailyCarouselLeft.showDailyCarouselLeft)), (0, _elementCreators.appendElemToParent)(dailyContainerInner))((0, _elementCreators.elemCreator)("button")([
+        "daily",
+        "bttn-prev"
+    ]));
+    (0, _elementCreators.pipe)((0, _elementCreators.addTextToElem)(">"), (0, _elementCreators.addEvtListener)("click")((0, _showDailyCarouselRight.showDailyCarouselRight)), (0, _elementCreators.appendElemToParent)(dailyContainerInner))((0, _elementCreators.elemCreator)("button")([
+        "daily",
+        "bttn-next"
+    ]));
 };
 
-},{"../utilities/element-creators":"ijWjs","./renderDailyCard":"jK6z2","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"jK6z2":[function(require,module,exports) {
+},{"../events/showDailyCarouselLeft":"1JPmx","../events/showDailyCarouselRight":"kQFBk","../utilities/element-creators":"ijWjs","./renderDailyCard":"jK6z2","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"1JPmx":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "showDailyCarouselLeft", ()=>showDailyCarouselLeft);
+var _showSlides = require("./showSlides");
+const showDailyCarouselLeft = function(ev) {
+    const log = (i)=>console.log("\n", i, "\n");
+    if (!localStorage.getItem("dailySlideIndex")) localStorage.setItem("dailySlideIndex", JSON.stringify(1));
+    let dailySlideIndex = JSON.parse(localStorage.getItem("dailySlideIndex"));
+    dailySlideIndex--;
+    localStorage.setItem("dailySlideIndex", JSON.stringify(dailySlideIndex));
+    log(dailySlideIndex);
+    (0, _showSlides.showSlides)(dailySlideIndex);
+};
+
+},{"./showSlides":"4uAMT","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"4uAMT":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "showSlides", ()=>showSlides);
+const showSlides = function(index) {
+    const slides = document.querySelectorAll(".daily-ul li");
+    let dailySlideIndex = JSON.parse(localStorage.getItem("dailySlideIndex"));
+    //loop around
+    if (index > slides.length) {
+        dailySlideIndex = 1;
+        localStorage.setItem("dailySlideIndex", JSON.stringify(1));
+    }
+    if (index < 1) dailySlideIndex = slides.length;
+    slides.forEach((slide)=>{
+        slide.style.display = "none";
+    });
+    slides[dailySlideIndex - 1].style.display = "block";
+};
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"kQFBk":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "showDailyCarouselRight", ()=>showDailyCarouselRight);
+var _showSlides = require("./showSlides");
+const showDailyCarouselRight = function(ev) {
+    const log = (i)=>console.log("\n", i, "\n");
+    if (!localStorage.getItem("dailySlideIndex")) localStorage.setItem("dailySlideIndex", JSON.stringify(1));
+    let dailySlideIndex = JSON.parse(localStorage.getItem("dailySlideIndex"));
+    dailySlideIndex++;
+    localStorage.setItem("dailySlideIndex", JSON.stringify(dailySlideIndex));
+    log(dailySlideIndex);
+    (0, _showSlides.showSlides)(dailySlideIndex);
+};
+
+},{"./showSlides":"4uAMT","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"jK6z2":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "renderDailyCard", ()=>renderDailyCard);
 var _elementCreators = require("../utilities/element-creators");
+var _showSlides = require("../events/showSlides");
 const renderDailyCard = function(daily_, container_, index_, day_) {
     const tempDaily = {
         dt: 1654254000,
@@ -831,7 +893,9 @@ const renderDailyCard = function(daily_, container_, index_, day_) {
     (0, _elementCreators.appendElemToParent)(container_)(li);
     const dailyCard = (0, _elementCreators.elemCreator)("div")([
         "daily",
-        "daily-card"
+        "daily-card",
+        "slides",
+        "fade"
     ]);
     (0, _elementCreators.appendElemToParent)(li)(dailyCard);
     (0, _elementCreators.pipe)((0, _elementCreators.addTextToElem)(`${day_ + index_ < 7 ? daysMap.get(day_ + index_) : daysMap.get(day_ + index_ - 7)}`), (0, _elementCreators.appendElemToParent)(dailyCard))((0, _elementCreators.elemCreator)("h5")([
@@ -854,9 +918,15 @@ const renderDailyCard = function(daily_, container_, index_, day_) {
         "daily",
         "daily-desc"
     ]));
+    //sets the initial slide index
+    const setIndex = (()=>{
+        if (!localStorage.getItem("dailySlideIndex")) localStorage.setItem("dailySlideIndex", JSON.stringify(1));
+        let dailySlideIndex = JSON.parse(localStorage.getItem("dailySlideIndex"));
+        (0, _showSlides.showSlides)(dailySlideIndex);
+    })();
 };
 
-},{"../utilities/element-creators":"ijWjs","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"hhEjo":[function(require,module,exports) {
+},{"../utilities/element-creators":"ijWjs","../events/showSlides":"4uAMT","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"hhEjo":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "renderHourly", ()=>renderHourly);
@@ -893,7 +963,6 @@ const renderHourly = function(hourly_) {
         hours,
         `${hours < 13 ? "AM" : "PM"}`
     ];
-    log(hoursTime);
     const hourlyContainer = document.querySelector(".hourlyContainer");
     //remove previously rendered contents
     const hourlyContainerChild = document.querySelector(".hourlyContainerInner");
@@ -906,7 +975,7 @@ const renderHourly = function(hourly_) {
     (0, _elementCreators.appendElemToParent)(hourlyContainer)(hourlyContainerInner);
     const ul = (0, _elementCreators.elemCreator)("ul")([
         "hourly",
-        "carousel-ul"
+        "hourly-ul"
     ]);
     (0, _elementCreators.appendElemToParent)(hourlyContainerInner)(ul);
     //render hourly cards
@@ -958,15 +1027,16 @@ const renderHourlyCard = function(hourly_, container_, index_, hours_) {
     ]));
 };
 
-},{"../utilities/element-creators":"ijWjs","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./getHours":"6Geb2"}],"6Geb2":[function(require,module,exports) {
+},{"../utilities/element-creators":"ijWjs","./getHours":"6Geb2","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"6Geb2":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "getHours", ()=>getHours);
 const getHours = function(hours_, index_) {
     let hours = (hours_[0] + 11) % 12 + 1 + index_;
     let hoursTime;
+    //not very elegant but it works...up to 48 hrs
     if (hours_[1] === "PM") {
-        if (hours <= 12) hoursTime = `${hours} PM`;
+        if (hours <= 12) hoursTime = `${hours} ${hours_[1]}`;
         else //hours > 12 and <= 24
         if (hours <= 24) {
             hours = hours - 12;
@@ -974,13 +1044,31 @@ const getHours = function(hours_, index_) {
         } else {
             if (hours > 24 && hours <= 36) {
                 hours = hours - 24;
-                hoursTime = `${hours} PM`;
+                hoursTime = `${hours} ${hours_[1]}`;
             } else if (hours > 36 && hours <= 48) {
                 hours = hours - 36;
                 hoursTime = `${hours} AM`;
             } else if (hours > 48 && hours <= 60) {
                 hours = hours - 48;
+                hoursTime = `${hours} ${hours_[1]}`;
+            }
+        }
+    } else if (hours_[1] === "AM") {
+        if (hours <= 12) hoursTime = `${hours} ${hours_[1]}`;
+        else //hours > 12 and <= 24
+        if (hours <= 24) {
+            hours = hours - 12;
+            hoursTime = `${hours} PM`;
+        } else {
+            if (hours > 24 && hours <= 36) {
+                hours = hours - 24;
+                hoursTime = `${hours} ${hours_[1]}`;
+            } else if (hours > 36 && hours <= 48) {
+                hours = hours - 36;
                 hoursTime = `${hours} PM`;
+            } else if (hours > 48 && hours <= 60) {
+                hours = hours - 48;
+                hoursTime = `${hours} ${hours_[1]}`;
             }
         }
     }
