@@ -9,30 +9,33 @@ import {
 	addStyleToElem,
 	pipe,
 } from '../utilities/element-creators'
+import { getHours } from './getHours'
 
 const renderHourlyCard = function (
 	hourly_: Hourly,
 	container_: HTMLElement,
-	index: number,
-	hours_: number
+	index_: number,
+	hours_: [number, string]
 ) {
+	const log = (i: unknown) => console.log('\n', i, '\n')
+
 	const description = hourly_.weather[0].description.split(' ').reduce((acc, curr) => {
 		curr = curr[0].toUpperCase() + curr.slice(1)
 		acc = `${acc} ${curr}`
 		return acc
 	}, '')
 
-	const li = elemCreator('li')(['hourly', `li${index}`])
+	const li = elemCreator('li')(['hourly', `hourly-li${index_}`])
 	appendElemToParent(container_)(li)
 
 	const hourlyCard = elemCreator('div')(['hourly', 'hourly-card'])
 	appendElemToParent(li)(hourlyCard)
 
-	//TODO: broken, fix this logic
+	//grab the correctly formatted 12-hr time
+	const hoursTime = getHours(hours_, index_)
+
 	pipe(
-		addTextToElem(
-			`${hours_ + index < 12 ? hours_ + index + 'AM' : hours_ + index - 12 + 'PM'}`
-		),
+		addTextToElem(hoursTime),
 		appendElemToParent(hourlyCard)
 	)(elemCreator('h5')(['hourly', 'hourly-time']))
 

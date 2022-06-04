@@ -17,3 +17,11 @@ h1 {
 .currentContainer {
 	outline: 1px solid cornflowerblue;
 }
+
+.hourlyContainer {
+	outline: 1px solid lightseagreen;
+}
+
+.dailyContainer {
+	outline: 1px solid indigo;
+}

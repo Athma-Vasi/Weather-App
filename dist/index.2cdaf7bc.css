@@ -17,4 +17,12 @@ h1 {
   outline: 1px solid #6495ed;
 }
 
+.hourlyContainer {
+  outline: 1px solid #20b2aa;
+}
+
+.dailyContainer {
+  outline: 1px solid indigo;
+}
+
 /*# sourceMappingURL=index.2cdaf7bc.css.map */

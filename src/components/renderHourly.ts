@@ -32,8 +32,9 @@ const renderHourly = function (hourly_: HourlyArr) {
 	}
 
 	const now = new Date()
-	let hoursTime = now.getHours()
-	hoursTime = hoursTime < 12 ? hoursTime : hoursTime - 12
+	let hours = now.getHours()
+	let hoursTime: [number, string] = [hours, `${hours < 13 ? 'AM' : 'PM'}`]
+	log(hoursTime)
 
 	const hourlyContainer: Div = document.querySelector('.hourlyContainer')
 
