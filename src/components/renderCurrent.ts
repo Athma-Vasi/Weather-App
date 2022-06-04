@@ -41,36 +41,26 @@ const renderCurrent = function (
 	pipe(
 		addTextToElem(geoData_.name),
 		appendElemToParent(currentContainerInner)
-	)(elemCreator('h3')(['current', 'cityName']))
+	)(elemCreator('h2')(['current', 'current-cityName']))
 
 	pipe(
 		addTextToElem(`${Math.round(current_.temp)}°`),
 		appendElemToParent(currentContainerInner)
-	)(elemCreator('h2')(['current', 'temperature']))
+	)(elemCreator('h2')(['current', 'current-temp']))
 
 	pipe(
 		addTextToElem(description),
 		appendElemToParent(currentContainerInner)
-	)(elemCreator('h4')(['current', 'description']))
+	)(elemCreator('h4')(['current', 'current-desc']))
 
 	pipe(
-		addTextToElem('High: '),
+		addTextToElem(`High: ${high}°`),
 		appendElemToParent(currentContainerInner)
-	)(elemCreator('h4')(['current', 'high-text']))
+	)(elemCreator('h4')(['current', 'current-high']))
 
 	pipe(
-		addTextToElem(`${high}°`),
+		addTextToElem(`Low: ${low}°`),
 		appendElemToParent(currentContainerInner)
-	)(elemCreator('h4')(['current', 'high-number']))
-
-	pipe(
-		addTextToElem(`Low: `),
-		appendElemToParent(currentContainerInner)
-	)(elemCreator('h4')(['current', 'low-text']))
-
-	pipe(
-		addTextToElem(`${low}°`),
-		appendElemToParent(currentContainerInner)
-	)(elemCreator('h4')(['current', 'low-number']))
+	)(elemCreator('h4')(['current', 'current-low']))
 }
 export { renderCurrent }

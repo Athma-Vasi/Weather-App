@@ -1,3 +1,8 @@
+:root {
+	--width-min: 828px;
+	--width-max: 1242px;
+}
+
 html {
 	box-sizing: border-box;
 	margin: 0;
@@ -12,27 +17,130 @@ html {
 body {
 	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu,
 		Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-	width: 828px;
-	outline: 1px solid royalblue;
+	display: grid;
+	place-content: center;
 	background-image: linear-gradient(to top, #30cfd0 0%, #330867 100%);
-	color: #f0f8ff;
-	height: 100vh;
 }
 
-main {
+/* container */
+.container {
+	width: clamp(var(--width-min), 62vw, var(--width-max));
+	color: #f0f8ff;
+	height: 100vh;
+	outline: 1px solid white;
 	display: flex;
 	flex-direction: column;
 }
 
-.currentContainer {
-	outline: 1px solid cornflowerblue;
+h1 {
+	font-size: 3.5rem;
+	margin-left: 2rem;
+}
+h2 {
+	font-size: 3rem;
 }
 
-.hourlyContainerInner {
+/* header */
+header {
 	display: flex;
-	outline: 1px solid tan;
+	width: 100%;
+	height: 9%;
+	justify-content: space-between;
+	align-items: center;
+}
+.bttn-menu {
+	border: none;
+	outline: none;
+	color: aliceblue;
+	background: transparent;
+}
+.bttn-menu svg {
+	opacity: 1;
+	transform: scale(2);
+	margin-right: 2rem;
+	cursor: pointer;
 }
 
+main {
+	/* display: grid;
+	grid-template-rows: 9% 14.6% repeat(2, 1fr); */
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	width: clamp(var(--width-min), 62vw, var(--width-max));
+}
+.form-container {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 4rem;
+	margin: 3rem 0px;
+}
+#search-city {
+	height: 4rem;
+	width: 30rem;
+	border-radius: 4px;
+	outline: none;
+	border: none;
+	background-color: aliceblue;
+	color: gray;
+	font-family: inherit;
+	padding-left: 2rem;
+}
+.bttn-search-city {
+	height: 4rem;
+	width: 10rem;
+	background-color: aliceblue;
+	border: none;
+	outline: none;
+	border-radius: 4px;
+	color: gray;
+	cursor: pointer;
+	margin-left: 1rem;
+}
+
+/* current container */
+.currentContainer {
+	display: grid;
+	place-content: center;
+	width: clamp(var(--width-min), 62vw, var(--width-max));
+	margin-bottom: 2rem;
+	margin-top: 1rem;
+}
+.currentContainerInner {
+	width: clamp(calc(var(--width-min) * 0.618), 62vw, calc(var(--width-max) * 0.618));
+	display: flex;
+	justify-content: space-evenly;
+	align-items: center;
+}
+.currentContainerInner * {
+	margin: 0px;
+	padding: 1rem;
+	text-align: center;
+}
+.current-temp {
+	font-size: 5rem;
+}
+
+/* hourly container */
+.hourlyContainerInner {
+	margin-top: 2rem;
+	display: flex;
+	width: clamp(var(--width-min), 62vw, var(--width-max));
+	padding-right: 2rem;
+}
+.hourly-card {
+	margin-right: 1rem;
+	display: flex;
+	flex-direction: column;
+	width: 11rem;
+	align-items: center;
+	text-align: center;
+}
+.hourly-icon {
+	transform: scale(1);
+}
 .hourly-ul {
 	display: flex;
 	overflow: scroll;
@@ -42,10 +150,24 @@ main {
 	list-style: none;
 }
 
+/* daily container */
 .dailyContainerInner {
 	position: relative;
-	outline: 1px solid indigo;
-	width: 30rem;
+	width: clamp(calc(var(--width-min) * 0.618), 62vw, calc(var(--width-max) * 0.618));
+	margin-top: 4rem;
+}
+.daily-card {
+	display: flex;
+	justify-content: space-evenly;
+	align-items: center;
+	width: 100%;
+	margin-left: -2rem;
+}
+.daily-day {
+	font-size: 2rem;
+}
+.daily-icon {
+	transform: scale(1);
 }
 
 .bttn-prev,
@@ -62,6 +184,7 @@ main {
 	color: whitesmoke;
 	transition: 0.246s ease;
 	cursor: pointer;
+	background: transparent;
 }
 .bttn-next:hover,
 .bttn-prev:hover {
