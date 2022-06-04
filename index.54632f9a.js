@@ -720,6 +720,10 @@ const renderDaily = function(dailyArr_) {
     //remove previously rendered content
     const dailyContainerChild = document.querySelector(".dailyContainerInner");
     if (dailyContainerChild) dailyContainerChild.remove();
+    (0, _elementCreators.pipe)((0, _elementCreators.addTextToElem)("Daily forecast"), (0, _elementCreators.appendElemToParent)(dailyContainer))((0, _elementCreators.elemCreator)("p")([
+        "daily",
+        "daily-heading"
+    ]));
     //render new content
     const dailyContainerInner = (0, _elementCreators.elemCreator)("div")([
         "dailyContainerInner"
@@ -756,7 +760,6 @@ const showDailyCarouselLeft = function(ev) {
     let dailySlideIndex = JSON.parse(localStorage.getItem("dailySlideIndex"));
     dailySlideIndex--;
     localStorage.setItem("dailySlideIndex", JSON.stringify(dailySlideIndex));
-    log(dailySlideIndex);
     (0, _showSlides.showSlides)(dailySlideIndex);
 };
 
@@ -790,7 +793,6 @@ const showDailyCarouselRight = function(ev) {
     let dailySlideIndex = JSON.parse(localStorage.getItem("dailySlideIndex"));
     dailySlideIndex++;
     localStorage.setItem("dailySlideIndex", JSON.stringify(dailySlideIndex));
-    log(dailySlideIndex);
     (0, _showSlides.showSlides)(dailySlideIndex);
 };
 
@@ -841,15 +843,16 @@ const renderDailyCard = function(daily_, container_, index_) {
         pop: 0.08,
         uvi: 6.36
     };
-    const toDateTime = (secs)=>{
-        const t = new Date(1970, 0, 1) //epoch
-        ;
-        t.setSeconds(secs);
-        return t;
-    };
-    let now = toDateTime(daily_.dt);
-    let day_ = now.getDay();
-    log(day_);
+    // const toDateTime = (secs: number) => {
+    // 	const t = new Date(1970, 0, 1) //epoch
+    // 	t.setSeconds(secs)
+    // 	return t
+    // }
+    // let now = toDateTime(daily_.dt)
+    // let day_ = now.getDay()
+    // log(day_)
+    const now = new Date();
+    const day_ = now.getDay();
     const daysMap = new Map([
         [
             0,
@@ -967,6 +970,10 @@ const renderHourly = function(hourly_) {
     //remove previously rendered contents
     const hourlyContainerChild = document.querySelector(".hourlyContainerInner");
     if (hourlyContainerChild) hourlyContainerChild.remove();
+    (0, _elementCreators.pipe)((0, _elementCreators.addTextToElem)("48 hr forecast"), (0, _elementCreators.appendElemToParent)(hourlyContainer))((0, _elementCreators.elemCreator)("p")([
+        "hourly",
+        "hourly-heading"
+    ]));
     //render new contents
     const hourlyContainerInner = (0, _elementCreators.elemCreator)("div")([
         "hourly",
