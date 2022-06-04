@@ -598,33 +598,25 @@ const renderCurrent = function(geoData_, current_, hourly_) {
         "currentContainerInner"
     ]);
     (0, _elementCreators.appendElemToParent)(currentContainer)(currentContainerInner);
-    (0, _elementCreators.pipe)((0, _elementCreators.addTextToElem)(geoData_.name), (0, _elementCreators.appendElemToParent)(currentContainerInner))((0, _elementCreators.elemCreator)("h3")([
+    (0, _elementCreators.pipe)((0, _elementCreators.addTextToElem)(geoData_.name), (0, _elementCreators.appendElemToParent)(currentContainerInner))((0, _elementCreators.elemCreator)("h2")([
         "current",
-        "cityName"
+        "current-cityName"
     ]));
     (0, _elementCreators.pipe)((0, _elementCreators.addTextToElem)(`${Math.round(current_.temp)}°`), (0, _elementCreators.appendElemToParent)(currentContainerInner))((0, _elementCreators.elemCreator)("h2")([
         "current",
-        "temperature"
+        "current-temp"
     ]));
     (0, _elementCreators.pipe)((0, _elementCreators.addTextToElem)(description), (0, _elementCreators.appendElemToParent)(currentContainerInner))((0, _elementCreators.elemCreator)("h4")([
         "current",
-        "description"
+        "current-desc"
     ]));
-    (0, _elementCreators.pipe)((0, _elementCreators.addTextToElem)("High: "), (0, _elementCreators.appendElemToParent)(currentContainerInner))((0, _elementCreators.elemCreator)("h4")([
+    (0, _elementCreators.pipe)((0, _elementCreators.addTextToElem)(`High: ${high}°`), (0, _elementCreators.appendElemToParent)(currentContainerInner))((0, _elementCreators.elemCreator)("h4")([
         "current",
-        "high-text"
+        "current-high"
     ]));
-    (0, _elementCreators.pipe)((0, _elementCreators.addTextToElem)(`${high}°`), (0, _elementCreators.appendElemToParent)(currentContainerInner))((0, _elementCreators.elemCreator)("h4")([
+    (0, _elementCreators.pipe)((0, _elementCreators.addTextToElem)(`Low: ${low}°`), (0, _elementCreators.appendElemToParent)(currentContainerInner))((0, _elementCreators.elemCreator)("h4")([
         "current",
-        "high-number"
-    ]));
-    (0, _elementCreators.pipe)((0, _elementCreators.addTextToElem)(`Low: `), (0, _elementCreators.appendElemToParent)(currentContainerInner))((0, _elementCreators.elemCreator)("h4")([
-        "current",
-        "low-text"
-    ]));
-    (0, _elementCreators.pipe)((0, _elementCreators.addTextToElem)(`${low}°`), (0, _elementCreators.appendElemToParent)(currentContainerInner))((0, _elementCreators.elemCreator)("h4")([
-        "current",
-        "low-number"
+        "current-low"
     ]));
 };
 
