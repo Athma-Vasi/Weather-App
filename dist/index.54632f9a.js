@@ -716,8 +716,6 @@ var _elementCreators = require("../utilities/element-creators");
 var _renderDailyCard = require("./renderDailyCard");
 const renderDaily = function(dailyArr_) {
     const log = (i)=>console.log("\n", i, "\n");
-    const now = new Date();
-    let day = now.getDay();
     const dailyContainer = document.querySelector(".dailyContainer");
     //remove previously rendered content
     const dailyContainerChild = document.querySelector(".dailyContainerInner");
@@ -734,7 +732,7 @@ const renderDaily = function(dailyArr_) {
     ]);
     (0, _elementCreators.appendElemToParent)(dailyContainerInner)(ul);
     dailyArr_.forEach((daily, index)=>{
-        (0, _renderDailyCard.renderDailyCard)(daily, ul, index, day);
+        (0, _renderDailyCard.renderDailyCard)(daily, ul, index);
     });
     //carousel nav buttons
     (0, _elementCreators.pipe)((0, _elementCreators.addTextToElem)("<"), (0, _elementCreators.addEvtListener)("click")((0, _showDailyCarouselLeft.showDailyCarouselLeft)), (0, _elementCreators.appendElemToParent)(dailyContainerInner))((0, _elementCreators.elemCreator)("button")([
@@ -802,7 +800,8 @@ parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "renderDailyCard", ()=>renderDailyCard);
 var _elementCreators = require("../utilities/element-creators");
 var _showSlides = require("../events/showSlides");
-const renderDailyCard = function(daily_, container_, index_, day_) {
+const renderDailyCard = function(daily_, container_, index_) {
+    const log = (i)=>console.log("\n", i, "\n");
     const tempDaily = {
         dt: 1654254000,
         sunrise: 1654228066,
@@ -842,6 +841,15 @@ const renderDailyCard = function(daily_, container_, index_, day_) {
         pop: 0.08,
         uvi: 6.36
     };
+    const toDateTime = (secs)=>{
+        const t = new Date(1970, 0, 1) //epoch
+        ;
+        t.setSeconds(secs);
+        return t;
+    };
+    let now = toDateTime(daily_.dt);
+    let day_ = now.getDay();
+    log(day_);
     const daysMap = new Map([
         [
             0,

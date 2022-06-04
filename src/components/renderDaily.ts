@@ -13,9 +13,6 @@ import { renderDailyCard } from './renderDailyCard'
 const renderDaily = function (dailyArr_: DailyArr) {
 	const log = (i: unknown) => console.log('\n', i, '\n')
 
-	const now = new Date()
-	let day = now.getDay()
-
 	const dailyContainer: Div = document.querySelector('.dailyContainer')
 
 	//remove previously rendered content
@@ -30,7 +27,7 @@ const renderDaily = function (dailyArr_: DailyArr) {
 	appendElemToParent(dailyContainerInner)(ul)
 
 	dailyArr_.forEach((daily, index) => {
-		renderDailyCard(daily, ul, index, day)
+		renderDailyCard(daily, ul, index)
 	})
 
 	//carousel nav buttons
@@ -46,4 +43,5 @@ const renderDaily = function (dailyArr_: DailyArr) {
 		appendElemToParent(dailyContainerInner)
 	)(elemCreator('button')(['daily', 'bttn-next']))
 }
+
 export { renderDaily }

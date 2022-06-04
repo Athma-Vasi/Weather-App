@@ -14,9 +14,10 @@ import { showSlides } from '../events/showSlides'
 const renderDailyCard = function (
 	daily_: Daily,
 	container_: HTMLElement,
-	index_: number,
-	day_: number
+	index_: number
 ) {
+	const log = (i: unknown) => console.log('\n', i, '\n')
+
 	const tempDaily = {
 		dt: 1654254000,
 		sunrise: 1654228066,
@@ -37,6 +38,16 @@ const renderDailyCard = function (
 		pop: 0.08,
 		uvi: 6.36,
 	}
+
+	const toDateTime = (secs: number) => {
+		const t = new Date(1970, 0, 1) //epoch
+		t.setSeconds(secs)
+		return t
+	}
+
+	let now = toDateTime(daily_.dt)
+	let day_ = now.getDay()
+	log(day_)
 
 	const daysMap = new Map([
 		[0, 'Sunday'],
