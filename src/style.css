@@ -27,7 +27,6 @@ body {
 	width: clamp(var(--width-min), 62vw, var(--width-max));
 	color: #f0f8ff;
 	height: 100vh;
-	outline: 1px solid white;
 	display: flex;
 	flex-direction: column;
 }
@@ -129,6 +128,12 @@ main {
 	display: flex;
 	width: clamp(var(--width-min), 62vw, var(--width-max));
 	padding-right: 2rem;
+	flex-direction: column;
+	color: aliceblue;
+	padding-left: 2rem;
+}
+.hourly-heading {
+	margin-left: 7rem;
 }
 .hourly-card {
 	margin-right: 1rem;
@@ -137,9 +142,11 @@ main {
 	width: 11rem;
 	align-items: center;
 	text-align: center;
+	margin-left: -3rem;
 }
 .hourly-icon {
 	transform: scale(1);
+	filter: drop-shadow(5px 5px 8px hsl(0, 0%, 0%, 0.62));
 }
 .hourly-ul {
 	display: flex;
@@ -153,21 +160,39 @@ main {
 /* daily container */
 .dailyContainerInner {
 	position: relative;
-	width: clamp(calc(var(--width-min) * 0.618), 62vw, calc(var(--width-max) * 0.618));
+	width: clamp(
+		calc(var(--width-min) * 0.764) - 4rem,
+		62vw,
+		calc(var(--width-max) * 0.764)
+	);
+	margin-top: 4rem;
+	outline: 1px solid tan;
+	display: grid;
+	place-content: center;
+}
+.daily-heading {
 	margin-top: 4rem;
 }
+
 .daily-card {
 	display: flex;
-	justify-content: space-evenly;
+	justify-content: space-around;
 	align-items: center;
-	width: 100%;
-	margin-left: -2rem;
+	width: clamp(
+		calc(var(--width-min) * 0.764) - 6rem,
+		62vw,
+		calc(var(--width-max) * 0.764) - 6rem
+	);
+	margin-right: 4rem;
+	outline: 1px solid seagreen;
+	padding: 0px 2rem;
 }
 .daily-day {
 	font-size: 2rem;
 }
 .daily-icon {
 	transform: scale(1);
+	filter: drop-shadow(5px 5px 8px hsl(0, 0%, 0%, 0.38));
 }
 
 .bttn-prev,
@@ -181,14 +206,14 @@ main {
 	height: 3rem;
 	border: none;
 	outline: none;
-	color: whitesmoke;
+	color: aliceblue;
 	transition: 0.246s ease;
 	cursor: pointer;
 	background: transparent;
 }
 .bttn-next:hover,
 .bttn-prev:hover {
-	background-color: hsl(0, 0%, 0%, 0.8);
+	background-color: hsl(0, 0%, 0%, 0.62);
 }
 .bttn-next {
 	position: absolute;

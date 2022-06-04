@@ -41,6 +41,11 @@ const renderHourly = function (hourly_: HourlyArr) {
 	const hourlyContainerChild: Div = document.querySelector('.hourlyContainerInner')
 	if (hourlyContainerChild) hourlyContainerChild.remove()
 
+	pipe(
+		addTextToElem('48 hr forecast'),
+		appendElemToParent(hourlyContainer)
+	)(elemCreator('p')(['hourly', 'hourly-heading']))
+
 	//render new contents
 	const hourlyContainerInner = elemCreator('div')(['hourly', 'hourlyContainerInner'])
 	appendElemToParent(hourlyContainer)(hourlyContainerInner)

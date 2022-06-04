@@ -14,8 +14,6 @@ const showDailyCarouselRight = function (this: HTMLButtonElement, ev: MouseEvent
 
 	localStorage.setItem('dailySlideIndex', JSON.stringify(dailySlideIndex))
 
-	log(dailySlideIndex)
-
 	showSlides(dailySlideIndex)
 }
 export { showDailyCarouselRight }

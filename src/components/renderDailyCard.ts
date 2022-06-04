@@ -39,15 +39,18 @@ const renderDailyCard = function (
 		uvi: 6.36,
 	}
 
-	const toDateTime = (secs: number) => {
-		const t = new Date(1970, 0, 1) //epoch
-		t.setSeconds(secs)
-		return t
-	}
+	// const toDateTime = (secs: number) => {
+	// 	const t = new Date(1970, 0, 1) //epoch
+	// 	t.setSeconds(secs)
+	// 	return t
+	// }
 
-	let now = toDateTime(daily_.dt)
-	let day_ = now.getDay()
-	log(day_)
+	// let now = toDateTime(daily_.dt)
+	// let day_ = now.getDay()
+	// log(day_)
+
+	const now = new Date()
+	const day_ = now.getDay()
 
 	const daysMap = new Map([
 		[0, 'Sunday'],
