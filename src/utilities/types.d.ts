@@ -1,5 +1,6 @@
 export type Form = HTMLFormElement | null
 export type Div = HTMLDivElement | null
+export type NodesLi = NodeListOf<HTMLLinkElement>
 
 export type GeoData = {
 	name: string

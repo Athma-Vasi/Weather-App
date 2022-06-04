@@ -9,6 +9,7 @@ import {
 	addStyleToElem,
 	pipe,
 } from '../utilities/element-creators'
+import { showSlides } from '../events/showSlides'
 
 const renderDailyCard = function (
 	daily_: Daily,
@@ -57,7 +58,7 @@ const renderDailyCard = function (
 	const li = elemCreator('li')(['daily', `daily-li${index_}`])
 	appendElemToParent(container_)(li)
 
-	const dailyCard = elemCreator('div')(['daily', 'daily-card'])
+	const dailyCard = elemCreator('div')(['daily', 'daily-card', 'slides', 'fade'])
 	appendElemToParent(li)(dailyCard)
 
 	pipe(
@@ -88,5 +89,16 @@ const renderDailyCard = function (
 		addTextToElem(`${description}`),
 		appendElemToParent(dailyCard)
 	)(elemCreator('h5')(['daily', 'daily-desc']))
+
+	//sets the initial slide index
+	const setIndex = (() => {
+		if (!localStorage.getItem('dailySlideIndex')) {
+			localStorage.setItem('dailySlideIndex', JSON.stringify(1))
+		}
+
+		let dailySlideIndex = JSON.parse(localStorage.getItem('dailySlideIndex'))
+
+		showSlides(dailySlideIndex)
+	})()
 }
 export { renderDailyCard }

@@ -34,7 +34,6 @@ const renderHourly = function (hourly_: HourlyArr) {
 	const now = new Date()
 	let hours = now.getHours()
 	let hoursTime: [number, string] = [hours, `${hours < 13 ? 'AM' : 'PM'}`]
-	log(hoursTime)
 
 	const hourlyContainer: Div = document.querySelector('.hourlyContainer')
 
@@ -46,7 +45,7 @@ const renderHourly = function (hourly_: HourlyArr) {
 	const hourlyContainerInner = elemCreator('div')(['hourly', 'hourlyContainerInner'])
 	appendElemToParent(hourlyContainer)(hourlyContainerInner)
 
-	const ul = elemCreator('ul')(['hourly', 'carousel-ul'])
+	const ul = elemCreator('ul')(['hourly', 'hourly-ul'])
 	appendElemToParent(hourlyContainerInner)(ul)
 
 	//render hourly cards

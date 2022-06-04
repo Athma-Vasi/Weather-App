@@ -10,6 +10,7 @@ import {
 	pipe,
 } from '../utilities/element-creators'
 import { getHours } from './getHours'
+import { showSlides } from '../events/showSlides'
 
 const renderHourlyCard = function (
 	hourly_: Hourly,
