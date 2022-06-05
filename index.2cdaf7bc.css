@@ -126,6 +126,7 @@ main {
 
 .currentContainerInner * {
   text-align: center;
+  filter: drop-shadow(2px 2px 4px #00000061);
   margin: 0;
   padding: 1rem;
 }
@@ -151,10 +152,11 @@ main {
 .hourly-card {
   width: 11rem;
   text-align: center;
+  filter: drop-shadow(2px 2px 4px #00000061);
   flex-direction: column;
   align-items: center;
   margin-left: -3rem;
-  margin-right: 1rem;
+  margin-right: 2rem;
   display: flex;
 }
 
@@ -188,6 +190,7 @@ main {
 
 .daily-card {
   width: clamp( calc(var(--width-min) * .764)  - 6rem, 62vw, calc(var(--width-max) * .764)  - 6rem );
+  filter: drop-shadow(2px 2px 4px #00000061);
   justify-content: space-around;
   align-items: center;
   margin-right: 4rem;

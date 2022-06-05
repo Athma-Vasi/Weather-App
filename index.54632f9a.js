@@ -503,19 +503,20 @@ function hmrAcceptRun(bundle, id) {
 }
 
 },{}],"gg0zR":[function(require,module,exports) {
+var _navGeoLocation = require("./components/navGeoLocation");
 var _searchCityForm = require("./components/searchCityForm");
 const mainApp = function() {
     (0, _searchCityForm.searchCityForm)();
+    (0, _navGeoLocation.navGeoLocation)();
 };
 document.addEventListener("DOMContentLoaded", mainApp);
 
-},{"./components/searchCityForm":"fwD8U"}],"fwD8U":[function(require,module,exports) {
+},{"./components/searchCityForm":"fwD8U","./components/navGeoLocation":"6mjrr"}],"fwD8U":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "searchCityForm", ()=>searchCityForm);
 var _handleSearchCitySubmit = require("../events/handleSearchCitySubmit");
 const searchCityForm = function() {
-    const log = (i)=>console.log("\n", i, "\n");
     const formSearchCity = document.querySelector("#form-search-city");
     formSearchCity.addEventListener("submit", (0, _handleSearchCitySubmit.handleSearchCitySubmit));
 };
@@ -526,7 +527,6 @@ parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "handleSearchCitySubmit", ()=>handleSearchCitySubmit);
 var _fetchWeatherData = require("./fetchWeatherData");
 const handleSearchCitySubmit = function(ev) {
-    const log = (i)=>console.log("\n", i, "\n");
     ev.preventDefault();
     const formSearchCityData = new FormData(this);
     const inputSearchCity = formSearchCityData.get("search-city").toString();
@@ -541,7 +541,6 @@ var _renderCurrent = require("../components/renderCurrent");
 var _renderDaily = require("../components/renderDaily");
 var _renderHourly = require("../components/renderHourly");
 const fetchWeatherData = async function(cityName_) {
-    const log = (i)=>console.log("\n", i, "\n");
     const apiKey = "10869cf72314716d5dac69e49cfcb7b7";
     const geoResponse = await fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${cityName_}&limit=1&appid=${apiKey}`);
     const latAndLongResp = await geoResponse.json();
@@ -555,15 +554,9 @@ const fetchWeatherData = async function(cityName_) {
     }, new Map()));
     const weatherResponse = await fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${latAndLongObj.lat}&lon=${latAndLongObj.lon}&units=metric&appid=${apiKey}`);
     const weatherData = await weatherResponse.json();
-    JSON.stringify(weatherData);
     const current = weatherData.current;
-    const minutely = weatherData.minutely;
     const hourly = weatherData.hourly;
     const daily = weatherData.daily;
-    const timezone = {
-        timezone: weatherData.timezone,
-        timezone_offset: weatherData.timezone_offset
-    };
     //render
     (0, _renderCurrent.renderCurrent)(latAndLongObj, current, hourly);
     (0, _renderHourly.renderHourly)(hourly);
@@ -576,7 +569,6 @@ parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "renderCurrent", ()=>renderCurrent);
 var _elementCreators = require("../utilities/element-creators");
 const renderCurrent = function(geoData_, current_, hourly_) {
-    const log = (i)=>console.log("\n", i, "\n");
     //to find the highs and lows
     const temperatures = hourly_.map((temp)=>temp.temp).slice(0, 24);
     const high = Math.round(Math.max(...temperatures));
@@ -714,7 +706,6 @@ var _showDailyCarouselRight = require("../events/showDailyCarouselRight");
 var _elementCreators = require("../utilities/element-creators");
 var _renderDailyCard = require("./renderDailyCard");
 const renderDaily = function(dailyArr_) {
-    const log = (i)=>console.log("\n", i, "\n");
     const dailyContainer = document.querySelector(".dailyContainer");
     //remove previously rendered content
     const dailyContainerChild = document.querySelector(".dailyContainerInner");
@@ -754,7 +745,6 @@ parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "showDailyCarouselLeft", ()=>showDailyCarouselLeft);
 var _showSlides = require("./showSlides");
 const showDailyCarouselLeft = function(ev) {
-    const log = (i)=>console.log("\n", i, "\n");
     if (!localStorage.getItem("dailySlideIndex")) localStorage.setItem("dailySlideIndex", JSON.stringify(1));
     let dailySlideIndex = JSON.parse(localStorage.getItem("dailySlideIndex"));
     dailySlideIndex--;
@@ -787,7 +777,6 @@ parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "showDailyCarouselRight", ()=>showDailyCarouselRight);
 var _showSlides = require("./showSlides");
 const showDailyCarouselRight = function(ev) {
-    const log = (i)=>console.log("\n", i, "\n");
     if (!localStorage.getItem("dailySlideIndex")) localStorage.setItem("dailySlideIndex", JSON.stringify(1));
     let dailySlideIndex = JSON.parse(localStorage.getItem("dailySlideIndex"));
     dailySlideIndex++;
@@ -802,54 +791,6 @@ parcelHelpers.export(exports, "renderDailyCard", ()=>renderDailyCard);
 var _elementCreators = require("../utilities/element-creators");
 var _showSlides = require("../events/showSlides");
 const renderDailyCard = function(daily_, container_, index_) {
-    const log = (i)=>console.log("\n", i, "\n");
-    const tempDaily = {
-        dt: 1654254000,
-        sunrise: 1654228066,
-        sunset: 1654286990,
-        moonrise: 1654237920,
-        moonset: 1654211880,
-        moon_phase: 0.12,
-        temp: {
-            day: 21.39,
-            min: 10.47,
-            max: 22.1,
-            night: 16.2,
-            eve: 18.96,
-            morn: 11.13
-        },
-        feels_like: {
-            day: 20.63,
-            night: 15.52,
-            eve: 18.27,
-            morn: 10.54
-        },
-        pressure: 1017,
-        humidity: 40,
-        dew_point: 7.04,
-        wind_speed: 5.72,
-        wind_deg: 68,
-        wind_gust: 12.78,
-        weather: [
-            {
-                id: 801,
-                main: "Clouds",
-                description: "few clouds",
-                icon: "02d"
-            }
-        ],
-        clouds: 12,
-        pop: 0.08,
-        uvi: 6.36
-    };
-    // const toDateTime = (secs: number) => {
-    // 	const t = new Date(1970, 0, 1) //epoch
-    // 	t.setSeconds(secs)
-    // 	return t
-    // }
-    // let now = toDateTime(daily_.dt)
-    // let day_ = now.getDay()
-    // log(day_)
     const now = new Date();
     const day_ = now.getDay();
     const daysMap = new Map([
@@ -935,30 +876,6 @@ parcelHelpers.export(exports, "renderHourly", ()=>renderHourly);
 var _elementCreators = require("../utilities/element-creators");
 var _renderHourlyCard = require("./renderHourlyCard");
 const renderHourly = function(hourly_) {
-    const log = (i)=>console.log("\n", i, "\n");
-    const tempHourly = {
-        dt: 1654279200,
-        temp: 18.69,
-        feels_like: 18.02,
-        pressure: 1018,
-        humidity: 54,
-        dew_point: 9.2,
-        uvi: 0.51,
-        clouds: 84,
-        visibility: 10000,
-        wind_speed: 5.37,
-        wind_deg: 63,
-        wind_gust: 8.13,
-        weather: [
-            {
-                id: 803,
-                main: "Clouds",
-                description: "broken clouds",
-                icon: "04d"
-            }
-        ],
-        pop: 0.02
-    };
     const now = new Date();
     let hours = now.getHours();
     let hoursTime = [
@@ -997,7 +914,6 @@ parcelHelpers.export(exports, "renderHourlyCard", ()=>renderHourlyCard);
 var _elementCreators = require("../utilities/element-creators");
 var _getHours = require("./getHours");
 const renderHourlyCard = function(hourly_, container_, index_, hours_) {
-    const log = (i)=>console.log("\n", i, "\n");
     //capitalizes first letters of phrase
     const description = hourly_.weather[0].description.split(" ").reduce((acc, curr)=>{
         curr = curr[0].toUpperCase() + curr.slice(1);
@@ -1082,6 +998,40 @@ const getHours = function(hours_, index_) {
     return hoursTime;
 };
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["hwSkd","gg0zR"], "gg0zR", "parcelRequirebbde")
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"6mjrr":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "navGeoLocation", ()=>navGeoLocation);
+var _renderCurrent = require("./renderCurrent");
+var _renderDaily = require("./renderDaily");
+var _renderHourly = require("./renderHourly");
+const navGeoLocation = async function() {
+    const apiKey = "10869cf72314716d5dac69e49cfcb7b7";
+    navigator.geolocation.getCurrentPosition(async (success)=>{
+        const { latitude , longitude  } = success.coords;
+        const weatherResponse = await fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&units=metric&appid=${apiKey}`);
+        const weatherData = await weatherResponse.json();
+        const cityName = weatherData.timezone.split("/")[1];
+        const geoResponse = await fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${cityName}&limit=1&appid=${apiKey}`);
+        const latAndLongResp = await geoResponse.json();
+        const latAndLongObj = Object.fromEntries(latAndLongResp.reduce((acc, curr)=>{
+            acc.set("name", curr.name);
+            acc.set("lat", curr.lat);
+            acc.set("lon", curr.lon);
+            acc.set("country", curr.country);
+            acc.set("state", curr.state);
+            return acc;
+        }, new Map()));
+        const current = weatherData.current;
+        const hourly = weatherData.hourly;
+        const daily = weatherData.daily;
+        //render
+        (0, _renderCurrent.renderCurrent)(latAndLongObj, current, hourly);
+        (0, _renderHourly.renderHourly)(hourly);
+        (0, _renderDaily.renderDaily)(daily);
+    });
+};
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./renderCurrent":"hG8fc","./renderDaily":"cIjcA","./renderHourly":"hhEjo"}]},["hwSkd","gg0zR"], "gg0zR", "parcelRequirebbde")
 
 //# sourceMappingURL=index.54632f9a.js.map
