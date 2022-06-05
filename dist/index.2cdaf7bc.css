@@ -17,7 +17,7 @@ html {
 body {
   background-image: linear-gradient(to top, #30cfd0 0%, #330867 100%);
   place-content: center;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Open Sans, Helvetica Neue, sans-serif;
+  font-family: sans-serif;
   display: grid;
 }
 
@@ -36,7 +36,11 @@ h1 {
 }
 
 h2 {
-  font-size: 3rem;
+  font-size: 3.5rem;
+}
+
+h5 {
+  font-size: 1.5rem;
 }
 
 .navbar {
@@ -65,6 +69,7 @@ h2 {
 a {
   color: #f0f8ff;
   padding: 1rem;
+  font-size: 1.5rem;
   text-decoration: none;
   display: block;
 }
@@ -95,6 +100,7 @@ main {
   outline: none;
   padding-left: 2rem;
   font-family: inherit;
+  font-size: 1.75rem;
 }
 
 .bttn-search-city {
@@ -107,13 +113,14 @@ main {
   border-radius: 4px;
   outline: none;
   margin-left: 1rem;
+  font-size: 1.75rem;
 }
 
 .currentContainer {
   width: clamp(var(--width-min), 62vw, var(--width-max) );
   place-content: center;
   margin-top: 1rem;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
   display: grid;
 }
 
@@ -132,21 +139,28 @@ main {
 }
 
 .current-temp {
-  font-size: 5rem;
+  font-size: 6rem;
+}
+
+.current-desc, .current-high, .current-low {
+  font-size: 2rem;
 }
 
 .hourlyContainerInner {
   width: clamp(var(--width-min), 62vw, var(--width-max) );
   color: #f0f8ff;
+  height: 35rem;
   flex-direction: column;
-  margin-top: 2rem;
+  justify-content: center;
   padding-left: 2rem;
   padding-right: 2rem;
   display: flex;
 }
 
 .hourly-heading {
+  margin-bottom: -1rem;
   margin-left: 7rem;
+  font-size: 2rem;
 }
 
 .hourly-card {
@@ -167,7 +181,8 @@ main {
 
 .hourly-ul {
   display: flex;
-  overflow: scroll;
+  overflow-x: scroll;
+  overflow-y: hidden;
 }
 
 .hourly-ul li {
@@ -184,8 +199,9 @@ main {
 }
 
 .daily-heading {
-  margin-top: 4rem;
-  margin-bottom: -4rem;
+  margin-top: 5rem;
+  margin-bottom: -5rem;
+  font-size: 2rem;
 }
 
 .daily-card {
