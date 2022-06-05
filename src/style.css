@@ -133,6 +133,7 @@ main {
 	margin: 0px;
 	padding: 1rem;
 	text-align: center;
+	filter: drop-shadow(2px 2px 4px hsl(0, 0%, 0%, 0.38));
 }
 
 .current-temp {
@@ -155,13 +156,14 @@ main {
 }
 
 .hourly-card {
-	margin-right: 1rem;
+	margin-right: 2rem;
 	display: flex;
 	flex-direction: column;
 	width: 11rem;
 	align-items: center;
 	text-align: center;
 	margin-left: -3rem;
+	filter: drop-shadow(2px 2px 4px hsl(0, 0%, 0%, 0.38));
 }
 
 .hourly-icon {
@@ -208,6 +210,7 @@ main {
 	);
 	margin-right: 4rem;
 	padding: 0px 2rem;
+	filter: drop-shadow(2px 2px 4px hsl(0, 0%, 0%, 0.38));
 }
 
 .daily-day {

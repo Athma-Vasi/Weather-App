@@ -36,7 +36,6 @@ const fetchWeatherData = async function (cityName_: string) {
 	)
 
 	const weatherData: WeatherData = await weatherResponse.json()
-	JSON.stringify(weatherData)
 
 	const current: Current = weatherData.current
 	const hourly: HourlyArr = weatherData.hourly
