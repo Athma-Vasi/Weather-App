@@ -505,7 +505,6 @@ function hmrAcceptRun(bundle, id) {
 },{}],"gg0zR":[function(require,module,exports) {
 var _searchCityForm = require("./components/searchCityForm");
 const mainApp = function() {
-    const log = (i)=>console.log("\n", i, "\n");
     (0, _searchCityForm.searchCityForm)();
 };
 document.addEventListener("DOMContentLoaded", mainApp);
@@ -999,6 +998,7 @@ var _elementCreators = require("../utilities/element-creators");
 var _getHours = require("./getHours");
 const renderHourlyCard = function(hourly_, container_, index_, hours_) {
     const log = (i)=>console.log("\n", i, "\n");
+    //capitalizes first letters of phrase
     const description = hourly_.weather[0].description.split(" ").reduce((acc, curr)=>{
         curr = curr[0].toUpperCase() + curr.slice(1);
         acc = `${acc} ${curr}`;
@@ -1014,7 +1014,7 @@ const renderHourlyCard = function(hourly_, container_, index_, hours_) {
         "hourly-card"
     ]);
     (0, _elementCreators.appendElemToParent)(li)(hourlyCard);
-    //grab the correctly formatted 12-hr time
+    //grab the properly formatted 12-hr time
     const hoursTime = (0, _getHours.getHours)(hours_, index_);
     (0, _elementCreators.pipe)((0, _elementCreators.addTextToElem)(hoursTime), (0, _elementCreators.appendElemToParent)(hourlyCard))((0, _elementCreators.elemCreator)("h5")([
         "hourly",

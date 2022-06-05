@@ -1,16 +1,12 @@
-import { Div, Hourly, HourlyArr } from '../utilities/types'
+import { Hourly } from '../utilities/types'
 import {
 	elemCreator,
 	appendElemToParent,
 	addTextToElem,
-	addAttributeToElem,
 	createImage,
-	addEvtListener,
-	addStyleToElem,
 	pipe,
 } from '../utilities/element-creators'
 import { getHours } from './getHours'
-import { showSlides } from '../events/showSlides'
 
 const renderHourlyCard = function (
 	hourly_: Hourly,
@@ -18,8 +14,7 @@ const renderHourlyCard = function (
 	index_: number,
 	hours_: [number, string]
 ) {
-	const log = (i: unknown) => console.log('\n', i, '\n')
-
+	//capitalizes first letters of phrase
 	const description = hourly_.weather[0].description.split(' ').reduce((acc, curr) => {
 		curr = curr[0].toUpperCase() + curr.slice(1)
 		acc = `${acc} ${curr}`
@@ -32,7 +27,7 @@ const renderHourlyCard = function (
 	const hourlyCard = elemCreator('div')(['hourly', 'hourly-card'])
 	appendElemToParent(li)(hourlyCard)
 
-	//grab the correctly formatted 12-hr time
+	//grab the properly formatted 12-hr time
 	const hoursTime = getHours(hours_, index_)
 
 	pipe(

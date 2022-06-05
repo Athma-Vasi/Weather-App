@@ -1,12 +1,8 @@
-import { Current, Div, GeoData, Hourly, HourlyArr } from '../utilities/types'
+import { Current, Div, GeoData, HourlyArr } from '../utilities/types'
 import {
 	elemCreator,
 	appendElemToParent,
 	addTextToElem,
-	addAttributeToElem,
-	createImage,
-	addEvtListener,
-	addStyleToElem,
 	pipe,
 } from '../utilities/element-creators'
 
@@ -15,8 +11,6 @@ const renderCurrent = function (
 	current_: Current,
 	hourly_: HourlyArr
 ) {
-	const log = (i: unknown) => console.log('\n', i, '\n')
-
 	//to find the highs and lows
 	const temperatures = hourly_.map((temp) => temp.temp).slice(0, 24)
 	const high = Math.round(Math.max(...temperatures))
@@ -30,6 +24,7 @@ const renderCurrent = function (
 	}, '')
 
 	const currentContainer: Div = document.querySelector('.currentContainer')
+
 	//remove previously rendered contents
 	const currentContainerChild = document.querySelector('.currentContainerInner')
 	if (currentContainerChild) currentContainerChild.remove()

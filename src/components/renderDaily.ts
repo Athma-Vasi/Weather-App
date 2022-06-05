@@ -11,8 +11,6 @@ import { DailyArr, Div } from '../utilities/types'
 import { renderDailyCard } from './renderDailyCard'
 
 const renderDaily = function (dailyArr_: DailyArr) {
-	const log = (i: unknown) => console.log('\n', i, '\n')
-
 	const dailyContainer: Div = document.querySelector('.dailyContainer')
 
 	//remove previously rendered content

@@ -3,10 +3,8 @@ import { renderDaily } from '../components/renderDaily'
 import { renderHourly } from '../components/renderHourly'
 import {
 	Current,
-	Daily,
 	DailyArr,
 	GeoData,
-	Hourly,
 	HourlyArr,
 	Minutely,
 	TimeZone,
@@ -14,8 +12,6 @@ import {
 } from '../utilities/types'
 
 const fetchWeatherData = async function (cityName_: string) {
-	const log = (i: unknown) => console.log('\n', i, '\n')
-
 	const apiKey = '10869cf72314716d5dac69e49cfcb7b7'
 
 	const geoResponse = await fetch(
@@ -43,13 +39,8 @@ const fetchWeatherData = async function (cityName_: string) {
 	JSON.stringify(weatherData)
 
 	const current: Current = weatherData.current
-	const minutely: Minutely = weatherData.minutely
 	const hourly: HourlyArr = weatherData.hourly
 	const daily: DailyArr = weatherData.daily
-	const timezone: TimeZone = {
-		timezone: weatherData.timezone,
-		timezone_offset: weatherData.timezone_offset,
-	}
 
 	//render
 	renderCurrent(latAndLongObj, current, hourly)
