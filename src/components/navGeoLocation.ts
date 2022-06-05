@@ -18,7 +18,7 @@ const navGeoLocation = async function () {
 		const cityName = weatherData.timezone.split('/')[1]
 
 		const geoResponse = await fetch(
-			`http://api.openweathermap.org/geo/1.0/direct?q=${cityName}&limit=1&appid=${apiKey}`
+			`https://api.openweathermap.org/geo/1.0/direct?q=${cityName}&limit=1&appid=${apiKey}`
 		)
 
 		const latAndLongResp = await geoResponse.json()

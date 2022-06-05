@@ -542,7 +542,7 @@ var _renderDaily = require("../components/renderDaily");
 var _renderHourly = require("../components/renderHourly");
 const fetchWeatherData = async function(cityName_) {
     const apiKey = "10869cf72314716d5dac69e49cfcb7b7";
-    const geoResponse = await fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${cityName_}&limit=1&appid=${apiKey}`);
+    const geoResponse = await fetch(`https://api.openweathermap.org/geo/1.0/direct?q=${cityName_}&limit=1&appid=${apiKey}`);
     const latAndLongResp = await geoResponse.json();
     const latAndLongObj = Object.fromEntries(latAndLongResp.reduce((acc, curr)=>{
         acc.set("name", curr.name);
@@ -1012,7 +1012,7 @@ const navGeoLocation = async function() {
         const weatherResponse = await fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&units=metric&appid=${apiKey}`);
         const weatherData = await weatherResponse.json();
         const cityName = weatherData.timezone.split("/")[1];
-        const geoResponse = await fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${cityName}&limit=1&appid=${apiKey}`);
+        const geoResponse = await fetch(`https://api.openweathermap.org/geo/1.0/direct?q=${cityName}&limit=1&appid=${apiKey}`);
         const latAndLongResp = await geoResponse.json();
         const latAndLongObj = Object.fromEntries(latAndLongResp.reduce((acc, curr)=>{
             acc.set("name", curr.name);

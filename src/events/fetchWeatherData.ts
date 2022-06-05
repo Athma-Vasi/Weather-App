@@ -15,7 +15,7 @@ const fetchWeatherData = async function (cityName_: string) {
 	const apiKey = '10869cf72314716d5dac69e49cfcb7b7'
 
 	const geoResponse = await fetch(
-		`http://api.openweathermap.org/geo/1.0/direct?q=${cityName_}&limit=1&appid=${apiKey}`
+		`https://api.openweathermap.org/geo/1.0/direct?q=${cityName_}&limit=1&appid=${apiKey}`
 	)
 
 	const latAndLongResp = await geoResponse.json()
