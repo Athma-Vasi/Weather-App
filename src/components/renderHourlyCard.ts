@@ -36,7 +36,7 @@ const renderHourlyCard = function (
 	)(elemCreator('h5')(['hourly', 'hourly-time']))
 
 	pipe(appendElemToParent(hourlyCard))(
-		createImage(`http://openweathermap.org/img/wn/${hourly_.weather[0].icon}@2x.png`)([
+		createImage(`https://openweathermap.org/img/wn/${hourly_.weather[0].icon}@2x.png`)([
 			'hourly',
 			'hourly-icon',
 		])(`icon representing ${hourly_.weather[0].description}`)(`${description}`)

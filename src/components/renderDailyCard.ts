@@ -57,7 +57,7 @@ const renderDailyCard = function (
 	)(elemCreator('h5')(['daily', 'daily-low']))
 
 	pipe(appendElemToParent(dailyCard))(
-		createImage(`http://openweathermap.org/img/wn/${daily_.weather[0].icon}@2x.png`)([
+		createImage(`https://openweathermap.org/img/wn/${daily_.weather[0].icon}@2x.png`)([
 			'daily',
 			'daily-icon',
 		])(`icon representing ${daily_.weather[0].description}`)(`${description}`)
