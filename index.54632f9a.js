@@ -760,7 +760,7 @@ const showSlides = function(index) {
     const slides = document.querySelectorAll(".daily-ul li");
     let dailySlideIndex = JSON.parse(localStorage.getItem("dailySlideIndex"));
     //loop around
-    if (index > slides.length) {
+    if (index >= slides.length) {
         dailySlideIndex = 1;
         localStorage.setItem("dailySlideIndex", JSON.stringify(1));
     }
