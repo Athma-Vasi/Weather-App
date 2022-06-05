@@ -853,7 +853,7 @@ const renderDailyCard = function(daily_, container_, index_) {
         "daily",
         "daily-low"
     ]));
-    (0, _elementCreators.pipe)((0, _elementCreators.appendElemToParent)(dailyCard))((0, _elementCreators.createImage)(`http://openweathermap.org/img/wn/${daily_.weather[0].icon}@2x.png`)([
+    (0, _elementCreators.pipe)((0, _elementCreators.appendElemToParent)(dailyCard))((0, _elementCreators.createImage)(`https://openweathermap.org/img/wn/${daily_.weather[0].icon}@2x.png`)([
         "daily",
         "daily-icon", 
     ])(`icon representing ${daily_.weather[0].description}`)(`${description}`));
@@ -936,7 +936,7 @@ const renderHourlyCard = function(hourly_, container_, index_, hours_) {
         "hourly",
         "hourly-time"
     ]));
-    (0, _elementCreators.pipe)((0, _elementCreators.appendElemToParent)(hourlyCard))((0, _elementCreators.createImage)(`http://openweathermap.org/img/wn/${hourly_.weather[0].icon}@2x.png`)([
+    (0, _elementCreators.pipe)((0, _elementCreators.appendElemToParent)(hourlyCard))((0, _elementCreators.createImage)(`https://openweathermap.org/img/wn/${hourly_.weather[0].icon}@2x.png`)([
         "hourly",
         "hourly-icon", 
     ])(`icon representing ${hourly_.weather[0].description}`)(`${description}`));
