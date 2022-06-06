@@ -164,7 +164,7 @@ main {
 	justify-content: center;
 	color: aliceblue;
 	padding-left: 2rem;
-	height: 35rem;
+	height: 40rem;
 }
 
 .hourly-heading {
@@ -179,7 +179,9 @@ main {
 	flex-direction: column;
 	width: 11rem;
 	align-items: center;
+	justify-content: space-between;
 	text-align: center;
+	height: 33rem;
 	margin-left: -3rem;
 	filter: drop-shadow(2px 2px 4px hsl(0, 0%, 0%, 0.38));
 }
@@ -187,6 +189,11 @@ main {
 .hourly-icon {
 	transform: scale(1);
 	filter: drop-shadow(5px 5px 8px hsl(0, 0%, 0%, 0.62));
+	margin-top: -0.5rem;
+}
+
+.hourly-temp {
+	margin-top: auto;
 }
 
 .hourly-ul {
@@ -205,7 +212,7 @@ main {
 	position: relative;
 	width: clamp(
 		calc(var(--width-min) * 0.764) - 4rem,
-		62vw,
+		76.4vw,
 		calc(var(--width-max) * 0.764)
 	);
 	margin-top: 4rem;
@@ -214,8 +221,14 @@ main {
 }
 
 .daily-heading {
-	margin-top: 5rem;
+	width: clamp(
+		calc(var(--width-min) * 0.764) - 4rem,
+		76.4vw,
+		calc(var(--width-max) * 0.764)
+	);
+	margin-top: 7rem;
 	margin-bottom: -5rem;
+	padding-left: 1rem;
 	font-size: 2rem;
 }
 
@@ -225,7 +238,7 @@ main {
 	align-items: center;
 	width: clamp(
 		calc(var(--width-min) * 0.764) - 6rem,
-		62vw,
+		76.4vw,
 		calc(var(--width-max) * 0.764) - 6rem
 	);
 	margin-right: 4rem;

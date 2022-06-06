@@ -17,6 +17,9 @@ const renderDaily = function (dailyArr_: DailyArr) {
 	const dailyContainerChild = document.querySelector('.dailyContainerInner')
 	if (dailyContainerChild) dailyContainerChild.remove()
 
+	const dailyHeading = document.querySelector('.daily-heading')
+	if (dailyHeading) dailyHeading.remove()
+
 	pipe(
 		addTextToElem('Daily forecast'),
 		appendElemToParent(dailyContainer)
