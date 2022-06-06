@@ -710,6 +710,8 @@ const renderDaily = function(dailyArr_) {
     //remove previously rendered content
     const dailyContainerChild = document.querySelector(".dailyContainerInner");
     if (dailyContainerChild) dailyContainerChild.remove();
+    const dailyHeading = document.querySelector(".daily-heading");
+    if (dailyHeading) dailyHeading.remove();
     (0, _elementCreators.pipe)((0, _elementCreators.addTextToElem)("Daily forecast"), (0, _elementCreators.appendElemToParent)(dailyContainer))((0, _elementCreators.elemCreator)("p")([
         "daily",
         "daily-heading"
@@ -886,16 +888,16 @@ const renderHourly = function(hourly_) {
     //remove previously rendered contents
     const hourlyContainerChild = document.querySelector(".hourlyContainerInner");
     if (hourlyContainerChild) hourlyContainerChild.remove();
-    (0, _elementCreators.pipe)((0, _elementCreators.addTextToElem)("48 hr forecast"), (0, _elementCreators.appendElemToParent)(hourlyContainer))((0, _elementCreators.elemCreator)("p")([
-        "hourly",
-        "hourly-heading"
-    ]));
     //render new contents
     const hourlyContainerInner = (0, _elementCreators.elemCreator)("div")([
         "hourly",
         "hourlyContainerInner"
     ]);
     (0, _elementCreators.appendElemToParent)(hourlyContainer)(hourlyContainerInner);
+    (0, _elementCreators.pipe)((0, _elementCreators.addTextToElem)("48 hr forecast"), (0, _elementCreators.appendElemToParent)(hourlyContainerInner))((0, _elementCreators.elemCreator)("p")([
+        "hourly",
+        "hourly-heading"
+    ]));
     const ul = (0, _elementCreators.elemCreator)("ul")([
         "hourly",
         "hourly-ul"
