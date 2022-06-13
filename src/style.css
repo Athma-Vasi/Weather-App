@@ -174,9 +174,6 @@ main {
 }
 
 .hourly-card {
-	/* margin-right: 2rem; */
-
-	outline: 1px solid darkcyan;
 	display: flex;
 	flex-direction: column;
 	width: 20rem;
