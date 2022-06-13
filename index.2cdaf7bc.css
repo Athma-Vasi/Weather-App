@@ -166,7 +166,6 @@ main {
   text-align: center;
   height: 33rem;
   filter: drop-shadow(2px 2px 4px #00000061);
-  outline: 1px solid #008b8b;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
