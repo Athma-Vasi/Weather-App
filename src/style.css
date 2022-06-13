@@ -159,11 +159,11 @@ main {
 .hourlyContainerInner {
 	display: flex;
 	width: clamp(var(--width-min), 62vw, var(--width-max));
-	padding-right: 2rem;
+	/* padding-right: 2rem; */
 	flex-direction: column;
 	justify-content: center;
 	color: aliceblue;
-	padding-left: 2rem;
+	/* padding-left: 2rem; */
 	height: 40rem;
 }
 
@@ -174,10 +174,12 @@ main {
 }
 
 .hourly-card {
-	margin-right: 2rem;
+	/* margin-right: 2rem; */
+
+	outline: 1px solid darkcyan;
 	display: flex;
 	flex-direction: column;
-	width: 11rem;
+	width: 20rem;
 	align-items: center;
 	justify-content: space-between;
 	text-align: center;

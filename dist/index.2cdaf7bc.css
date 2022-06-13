@@ -152,8 +152,6 @@ main {
   height: 40rem;
   flex-direction: column;
   justify-content: center;
-  padding-left: 2rem;
-  padding-right: 2rem;
   display: flex;
 }
 
@@ -164,15 +162,15 @@ main {
 }
 
 .hourly-card {
-  width: 11rem;
+  width: 20rem;
   text-align: center;
   height: 33rem;
   filter: drop-shadow(2px 2px 4px #00000061);
+  outline: 1px solid #008b8b;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
   margin-left: -3rem;
-  margin-right: 2rem;
   display: flex;
 }
 
