@@ -8,11 +8,16 @@ Weather-App as part of The Odin Project curriculum
 
 ### TL;DR
 
+- Parcel
 - Event loop
 - Asynchronous functions
 - Micro task queue
 - Macro task queue
 - Promises
+
+### Parcel
+
+I chose parcel because of its advertised zero-config capabilities, and boy did it deliver! It was basically plug and play 😍. I will definitely consider parcel for my bundling needs moving forward.
 
 ### Event Loop
 
