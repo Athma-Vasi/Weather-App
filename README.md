@@ -2,6 +2,8 @@
 
 Weather-App as part of The Odin Project curriculum
 
+[Click here to view project live](https://athma-vasi.github.io/Weather-App/)
+
 ## Things I learned
 
 ### TL;DR
